@@ -1,0 +1,66 @@
+
+Algoritmo para ordenar los resultados de las apuestas una vez terminada la carrera. Complejidad -> O(n^2)
+
+	public void orderingResults (bet[] bets) {
+		for (int i = 0; i < bets.length; i++) {                                                 //O(n)
+		    for (int j = 0; j < bets.length; j++) {                                              //O(n)
+		        if (bets[i].getGamblersBetPoints() > bets[j].getGamblersBetPoints()) {           //O(1)
+		            bet temp = bets[i];                                                           //O(1)
+		            bets[i] = bets[j];                                                            //O(1)
+		            bets[j] = temp;                                                               //O(1)
+		        }
+		    }
+	->Funcion de complejidad final: O(n) = n^2
+	
+	
+	
+            
+            
+Algoritmo para verificar las apuestas de cada apostador. Complejidad -> O(n)
+
+
+
+	    public void verifyBets(Bet bet, int actualHorse, int tmpHorse) {														
+		if(actualHorse<bet.getGamblersBet().length){																//1
+		    verifyHorses(bet, actualHorse, tmpHorse);																 //n
+		    actualHorse = actualHorse + 1;																	 //1
+		    tmpHorse = actualHorse + 1;																	 //1
+		    verifyBets(bet, actualHorse, tmpHorse);																 //n
+		}
+	    }						
+	    Resolviendo la recursion T(n)
+	    	T(n) = T(n) + 3
+	    	     = T(n+1) + 6
+	    	     = T(n+2) + 9
+	    	     = T(n-k) + 3k
+	    	n-k  = 0 => k=n
+	    	=> T(n) = T(0) + 3n
+	    	        = 3n + 1
+	    	   T(n) = n																
+	    ->Funcion de complejidad final: O(n) = n
+	    
+
+	    public void verifyHorses(Bet bet, int actualHorse, int tmpHorse){
+		if (tmpHorse < bet.getGamblersBet().length) {																	//1
+		    if (bet.getGamblersBet()[actualHorse].getHorseName().equals(bet.getGamblersBet()[tmpHorse].getHorseName())) {									//1
+		        System.out.println("epale estos se parecen " + bet.getGamblersBet()[actualHorse].getHorseName() + " " + bet.getGamblersBet()[tmpHorse].getHorseName()); 			//1
+		    } else {
+		        System.out.println(bet.getGamblersBet()[actualHorse].getHorseName() + " != " + bet.getGamblersBet()[tmpHorse].getHorseName());							//1
+		        tmpHorse++;																					//1
+		        verifyHorses(bet, actualHorse, tmpHorse);																	//T(n) = T(n) + 5
+		    }
+		}
+	    }
+	    Resolviendo la recursion T(n)
+	    	T(n) = T(n) + 5
+	    	     = T(n+1) + 10
+	    	     = T(n+2) + 20
+	    	     = T(n-k) + 5k
+	    	n-k  = 0 => k=n
+	    	=> T(n) = T(0) + 5n
+	    	        = 5n + 1
+	    	   T(n) = n
+	    
+	    ->Funcion de complejidad final: O(n) = n
+	    	  
+Algoritmo     	
